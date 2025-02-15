@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whising's 3D website!</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+        }
+        body {
+            background: linear-gradient(to bottom, #00ffff, #0000ff);
+        }
+        .a-enter-vr-button {
+            background-color: #007bff;
+            border-radius: 5px;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .a-enter-vr-button:hover {
+            background-color: green;
+        }
+    </style>
+</head>
+<body>
+    <a-scene>
+        <a-entity id="crt-tv" gltf-model="url(apple_ii_computer.glb)" position="0 1.6 -1" scale="1 1 1"></a-entity>
+        <a-entity id="camera" camera look-controls wasd-controls="acceleration: 20" position="0 1.8 1.5"></a-entity>
+
+        <a-light type="ambient" color="#FFF"></a-light>
+        <a-light type="directional" position="-1 1 1" intensity="0.5"></a-light>
+    </a-scene>
+
+    <script>
+        document.addEventListener('wheel', (event) => {
+            const cameraEl = document.getElementById('camera');
+            const position = cameraEl.getAttribute('position');
+            const zoomSpeed = 0.1; // Adjust the zoom speed as needed
+
+            // Update camera position based on scroll direction
+            if (event.deltaY < 0) {
+                position.z -= zoomSpeed; // Zoom in
+            } else {
+                position.z += zoomSpeed; // Zoom out
+            }
+
+            cameraEl.setAttribute('position', position);
+        });
+
+        document.querySelector('a-scene').setAttribute('custom-vr-button', '');
+    </script>
+</body>
+</html>
